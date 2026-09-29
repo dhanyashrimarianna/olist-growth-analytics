@@ -109,6 +109,7 @@ geolocation: joins to customers/sellers on zip code prefix (many rows per prefix
 | ~610 products have NULL category | Label as `unknown` |
 | A few categories are missing from the translation table | Fall back to the Portuguese name |
 | Delivery timestamps are NULL for undelivered orders | Delivery metrics computed on `delivered` orders only |
+| A handful of orders (8 in the source) are marked `delivered` but have no delivery date | Reported as WARN in the quality checks; delivery metrics (`delivery_days`, `is_late`) are NULL for them |
 | Some approved/delivery timestamps are out of order | Flag with `is_timestamp_valid`, exclude from delay metrics |
 | Dataset covers Sep 2016 to Oct 2018, with very thin data in 2016 and late 2018 | Analysis window: Jan 2017 to Aug 2018 |
 | Payments can be split across methods, so an order has multiple payment rows | Aggregate to one row per order for order-level revenue |

@@ -52,7 +52,7 @@ WITH checks AS (
 )
 SELECT check_name,
        violations,
-       CASE WHEN violations = 0 THEN 'PASS' ELSE 'FAIL' END AS status
+       CASE WHEN violations = 0 THEN 'PASS' WHEN check_name LIKE 'delivered orders with no delivery%' THEN 'WARN' ELSE 'FAIL' END AS status
 FROM checks;
 
 -- ---------------------------------------------------------------------
