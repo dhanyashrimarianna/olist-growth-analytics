@@ -11,14 +11,18 @@ and experiment design.
 
 | Phase | What I did | Where |
 |---|---|---|
-| 1. Business analysis | Stakeholder map, BRD, KPIs, user stories, journey/process flow | `docs/` |
+| 1. Business analysis | Stakeholder map, BRD, KPIs, user stories, journey/process flow | [`docs/`](docs/) |
 | 2. Data & analytics | PostgreSQL star schema, funnel, cohort retention, churn drivers, dashboard | `sql/`, `notebooks/`, `dashboard/` |
 | 3. Product management | RICE-scored roadmap, A/B test plan, PRD for the top feature | `roadmap/`, `docs/` |
 
 ## Key findings
 
-_To be filled in after the analysis is run on the real dataset (Phase 2). No numbers are
-claimed until they are computed and reproducible from this repo._
+Baseline from the loaded data (first pass, all order statuses): **3.12% of customers (2,997 of 96,096)
+placed a second order.** About 97 in 100 customers buy once and never return.
+
+The remaining findings (delivery experience versus review score, first-order experience versus return,
+segment differences) will be added after the Phase 2 analysis. No number is claimed here until it is
+computed and reproducible from this repo.
 
 ## Tech stack
 
@@ -30,7 +34,12 @@ Power BI / Tableau · Streamlit · Git
 ```
 olist-growth-analytics/
 ├── README.md
-├── docs/                  data dictionary, BRD, user stories, PRD, process flows
+├── docs/
+│   ├── data_dictionary.md
+│   ├── 01_stakeholder_map.md          problem statement, stakeholders, RACI
+│   ├── 02_business_requirements_document.md   objectives, KPIs, requirements, risks
+│   ├── 03_user_stories.md             12 stories with acceptance criteria
+│   └── 04_process_flows.md            customer journey and future-state flows
 ├── data/
 │   ├── raw/               (git-ignored) Olist CSVs from Kaggle
 │   └── sample/            tiny synthetic data for smoke-testing the pipeline
@@ -89,7 +98,7 @@ DATA_DIR=data/sample bash scripts/setup_db.sh
 ## Progress
 
 - [x] Repo skeleton, data dictionary, PostgreSQL schema, star schema, data quality checks
-- [ ] Phase 1: BRD, stakeholder map, user stories, process flow
+- [x] Phase 1: stakeholder map, BRD, user stories, process flows
 - [ ] Phase 2: funnel, cohort retention, churn drivers, dashboard, Streamlit app
 - [ ] Phase 3: RICE roadmap, A/B test plan, PRD
 - [ ] Fill in key findings above
