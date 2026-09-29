@@ -27,7 +27,7 @@ psql -d "$DB" -v ON_ERROR_STOP=1 -q -f sql/01_raw_schema.sql
 load() {  # load <table> <csv>
   echo ">> Loading $2 -> raw.$1"
   psql -d "$DB" -v ON_ERROR_STOP=1 -q \
-    -c "\copy raw.$1 FROM '$DATA_DIR/$2' WITH (FORMAT csv, HEADER true)"
+    -c "\copy raw.$1 FROM '$DATA_DIR/$2' WITH (FORMAT csv, HEADER true, ENCODING 'UTF8')"
 }
 
 load customers                     olist_customers_dataset.csv
