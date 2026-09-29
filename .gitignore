@@ -1,0 +1,14 @@
+# Data (download from Kaggle, see data/README.md)
+data/raw/*.csv
+data/processed/*.csv
+data/processed/*.parquet
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Env / OS
+.env
+.DS_Store
