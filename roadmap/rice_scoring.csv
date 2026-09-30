@@ -1,0 +1,5 @@
+id,feature,user_story,reach_per_quarter,impact,confidence,effort_person_months,rice_score,rank
+F1,"Timed, category-aware second-order nudge",US-07,13970.0,1.0,0.5,2.0,3491,1
+F3,Service recovery for 1-2 star reviews,US-08,1850.0,0.5,0.5,1.5,308,2
+F2,Proactive delay notification with revised date,US-05,960.0,0.5,0.5,3.0,80,3
+F4,Investigate same-day split orders (discovery),n/a,130.0,0.25,0.8,0.5,53,4

@@ -1,0 +1,5 @@
+scenario,ranking (id:score)
+Base case,"F1:3,491, F3:308, F2:80, F4:53"
+"Pessimistic on F1 (impact 0.5, confidence 0.3)","F1:1,047, F3:308, F2:80, F4:53"
+"Optimistic on F2 and F3 (impact 1, confidence 0.8)","F1:3,491, F3:985, F2:257, F4:53"
+Both together,"F1:1,047, F3:985, F2:257, F4:53"

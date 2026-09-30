@@ -1,0 +1,6 @@
+absolute_lift_pp,relative_lift_pct,n_per_arm,n_total,enrolment_months,months_to_readout_incl_90d_window
+0.2,16,51429,102858,22.1,25.1
+0.3,24,23668,47336,10.2,13.2
+0.4,33,13762,27524,5.9,8.9
+0.5,41,9091,18182,3.9,6.9
+0.75,61,4347,8694,1.9,4.9

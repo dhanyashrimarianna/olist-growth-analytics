@@ -38,6 +38,22 @@ Measured on the full dataset (99,441 orders), orders placed Jan 2017 to Aug 2018
 All results are associations from observational data, not proven causes; the A/B test plan is how causality
 would be tested.
 
+## Recommendations
+
+Scored with RICE (reproducible: `python scripts/rice_and_sample_size.py`). Full reasoning in
+[`roadmap/01_roadmap.md`](roadmap/01_roadmap.md).
+
+| Rank | Feature | RICE | Notes |
+|---|---|---|---|
+| 1 | Timed, category-aware second-order nudge | 3,491 | Stays first in all sensitivity scenarios; specified in [`docs/06_prd_second_order_nudge.md`](docs/06_prd_second_order_nudge.md) |
+| 2 | Service recovery for 1 to 2 star reviews | 308 | Cheap; also the exclusion rule for the nudge |
+| 3 | Proactive delay notification | 80 | Large effect on reviews, small on retention |
+| 4 | Investigate same-day split orders | 53 | Discovery; may change how repeat is measured |
+
+The test for the top item ([`roadmap/02_ab_test_plan.md`](roadmap/02_ab_test_plan.md)) is sized for a +0.5
+point lift in 90-day repeat rate: about 9,100 customers per group and roughly 7 months to read out at the
+marketplace's average volume. Retention gains at this scale are modest, so the first version has no discount.
+
 ## Tech stack
 
 PostgreSQL 16 (star schema, CTEs, window functions) · Python (pandas, SciPy, statsmodels) ·
@@ -68,12 +84,13 @@ olist-growth-analytics/
 ├── scripts/
 │   ├── setup_db.sh                create DB, load, model, validate
 │   ├── make_sample_data.py        synthetic Olist-shaped data
-│   └── run_analysis.py            runs the analysis: tables, charts, summary.md
+│   ├── run_analysis.py            runs the analysis: tables, charts, summary.md
+│   └── rice_and_sample_size.py    RICE scoring, sensitivity, A/B sample sizes
 ├── reports/               analysis output: tables/, figures/, summary.md
 ├── notebooks/             EDA, cohorts, churn drivers
 ├── dashboard/             Power BI/Tableau file + screenshots
 ├── app/                   Streamlit demo
-└── roadmap/               RICE scoring, A/B test plan
+└── roadmap/               01_roadmap.md (RICE), 02_ab_test_plan.md, rice/sample-size CSVs
 ```
 
 ## Data model
@@ -142,7 +159,7 @@ Set `PGPASSWORD` (and `PGUSER`, `PGHOST`, `PGDATABASE` if they differ from the d
 - [x] Phase 2a: analysis SQL and runner (funnel, KPIs, cohorts, delivery vs review, segments)
 - [x] Phase 2b: run on real data, interpret results
 - [ ] Phase 2c: dashboard, Streamlit app
-- [ ] Phase 3: RICE roadmap, A/B test plan, PRD
+- [x] Phase 3: RICE roadmap, A/B test plan, PRD
 - [x] Key findings above
 
 ## Data source and licence
