@@ -17,26 +17,12 @@ and experiment design.
 
 ## Key findings
 
-Measured on the full dataset (99,441 orders), orders placed Jan 2017 to Aug 2018. Details and caveats in
-[`docs/05_findings.md`](docs/05_findings.md); raw output in [`reports/summary.md`](reports/summary.md).
+Baseline from the loaded data (first pass, all order statuses): **3.12% of customers (2,997 of 96,096)
+placed a second order.** About 97 in 100 customers buy once and never return.
 
-- **Repeat purchase is rare.** 3.0% of customers (2,789 of 93,104) ever placed a second delivered order;
-  1.23% did so within 90 days.
-- **The funnel is healthy up to delivery** (97.1% of orders delivered). The leak is after the first order.
-- **Late delivery sharply lowers satisfaction.** Average review 2.27 for late orders versus 4.29 on time;
-  62.4% of late orders get a 1 to 2 star review versus 9.2%. It gets worse with delay: 1.73 average when 8+
-  days late.
-- **A bad first delivery is linked to a lower return rate, but the gap is small:** 0.92% versus 1.25%
-  (about a quarter lower, p = 0.027).
-- **Category matters more than delivery.** Repeat rate ranges from 0.80% (computers_accessories) to 1.75%
-  (bed_bath_table) among the largest categories.
-- **Sizing:** closing half of the delivery-related gap would add roughly 16 returning customers
-  (about R$ 2.4k) across the observed cohorts. Delivery is more a satisfaction lever than a growth lever.
-- **Initial hypothesis only partly supported:** delivery problems do not explain most of the low repeat
-  rate. The roadmap therefore weights timed, category-aware second-order nudges alongside delay handling.
-
-All results are associations from observational data, not proven causes; the A/B test plan is how causality
-would be tested.
+The remaining findings (delivery experience versus review score, first-order experience versus return,
+segment differences) will be added after the Phase 2 analysis. No number is claimed here until it is
+computed and reproducible from this repo.
 
 ## Tech stack
 
@@ -140,10 +126,9 @@ Set `PGPASSWORD` (and `PGUSER`, `PGHOST`, `PGDATABASE` if they differ from the d
 - [x] Repo skeleton, data dictionary, PostgreSQL schema, star schema, data quality checks
 - [x] Phase 1: stakeholder map, BRD, user stories, process flows
 - [x] Phase 2a: analysis SQL and runner (funnel, KPIs, cohorts, delivery vs review, segments)
-- [x] Phase 2b: run on real data, interpret results
-- [ ] Phase 2c: dashboard, Streamlit app
+- [ ] Phase 2b: run on real data, interpret results, dashboard, Streamlit app
 - [ ] Phase 3: RICE roadmap, A/B test plan, PRD
-- [x] Key findings above
+- [ ] Fill in key findings above
 
 ## Data source and licence
 

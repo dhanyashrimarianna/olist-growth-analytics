@@ -1,0 +1,13 @@
+delivery_group,review_group,customers,repeaters
+Late,1-2 stars,3676,26
+Late,3 stars,624,9
+Late,4-5 stars,1431,17
+Late,No review,133,2
+On time,1-2 stars,7321,82
+On time,3 stars,6417,67
+On time,4-5 stars,64027,826
+On time,No review,441,4
+Unknown,1-2 stars,19,0
+Unknown,3 stars,11,0
+Unknown,4-5 stars,97,1
+Unknown,No review,1,0

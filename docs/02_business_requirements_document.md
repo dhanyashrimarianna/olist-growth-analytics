@@ -27,8 +27,9 @@ A first-pass query on the loaded data shows:
 | Orders with impossible timestamp order | 189 | `is_timestamp_valid = false` |
 | Orders with no review | 768 | `review_score IS NULL` |
 
-> The 3.12% is a **first-pass baseline**. It includes all order statuses and does not adjust for how
-> long each customer has had to return. The final baseline is set in Phase 2 (see KPI-01 and KPI-02).
+> The 3.12% was a **first-pass baseline** (all order statuses, no adjustment for time to return). Phase 2
+> refined it: **3.00%** of customers placed 2+ delivered orders, and **1.23%** returned within 90 days
+> (see KPI-01 and KPI-02).
 
 ## 3. Business problem
 
@@ -68,18 +69,18 @@ All KPIs are computed from the star schema in `sql/02_star_schema.sql`.
 
 | ID | KPI | Definition | Source | Baseline | Target |
 |---|---|---|---|---|---|
-| KPI-01 | Repeat purchase rate (final) | Customers with 2+ **delivered** orders / customers with 1+ delivered order | `dw.fact_orders` | 3.12% first pass; delivered-only figure set in Phase 2 | Set with stakeholders after baseline |
-| KPI-02 | 90-day repeat rate | Share of a customer's first-order cohort placing a second order within 90 days, using only cohorts old enough to be observed | `dw.fact_orders` (`cohort_month`, `customer_order_seq`) | Phase 2 | Set after baseline |
-| KPI-03 | On-time delivery rate | Delivered orders delivered on or before the estimated date / delivered orders with valid timestamps | `dw.fact_orders.is_late` | Phase 2 | Set after baseline |
-| KPI-04 | Average delay (late orders) | Mean of `delay_days` for late orders | `dw.fact_orders.delay_days` | Phase 2 | Set after baseline |
-| KPI-05 | Average review score | Mean `review_score` (latest review per order) | `dw.fact_orders.review_score` | Phase 2 | Set after baseline |
-| KPI-06 | Review score gap | Avg score of on-time orders minus avg score of late orders | `dw.fact_orders` | Phase 2 | Diagnostic (used to size the delivery problem) |
-| KPI-07 | Repeat rate by first-order experience | KPI-02 split by on-time versus late first order | `dw.fact_orders` | Phase 2 | Diagnostic |
-| KPI-08 | Average order value (AOV) | Mean `payment_value` per order | `dw.fact_orders` | Phase 2 | Guardrail (must not fall) |
-| KPI-09 | Revenue at risk | Revenue from customers whose first order was late or low-rated, multiplied by the observed repeat-rate gap | Derived | Phase 2 | Sizing input for ROI |
+| KPI-01 | Repeat purchase rate | Customers with 2+ **delivered** orders / customers with 1+ delivered order (orders placed Jan 2017 to Aug 2018) | `dw.fact_orders` | **3.00%** (2,789 of 93,104) | Set in Phase 3 roadmap |
+| KPI-02 | 90-day repeat rate | Share of customers placing a second delivered order 1 to 90 days after their first, using only customers observable for a full 90 days; same-day second orders excluded | `dw.v_customer_first_order` | **1.23%** (2.18% counting same-day orders; n = 84,198) | Set in Phase 3 roadmap |
+| KPI-03 | On-time delivery rate | Delivered orders delivered on or before the estimated date / delivered orders with valid timestamps | `dw.fact_orders.is_late` | **93.20%** | Guardrail: hold or improve |
+| KPI-04 | Average delay (late orders) | Mean of `delay_days` for late orders | `dw.fact_orders.delay_days` | **11.30 days** | Diagnostic |
+| KPI-05 | Average review score | Mean `review_score` (latest review per order) | `dw.fact_orders.review_score` | **4.16** | Guardrail: hold or improve |
+| KPI-06 | Review score gap | Avg score of on-time orders minus avg score of late orders | `dw.fact_orders` | **2.02 points** (4.29 vs 2.27) | Diagnostic (used to size the delivery problem) |
+| KPI-07 | Repeat rate by first-order experience | KPI-02 split by on-time versus late first order | `dw.v_customer_first_order` | **1.25%** on time vs **0.92%** late (p = 0.027) | Diagnostic |
+| KPI-08 | Average order value (AOV) | Mean `payment_value` per delivered order | `dw.fact_orders` | **R$ 159.81** | Guardrail (must not fall) |
+| KPI-09 | Revenue at risk (illustrative) | Customers with a poor first experience x observed repeat-rate gap x average second-order value | Derived | **about R$ 2.4k** if half the gap were closed (16 customers) | Sizing input for ROI |
 
-Targets are deliberately not invented here. They are agreed with Finance and Growth once the baseline
-is measured, and any figure shown in the roadmap is labelled as an assumption.
+Baselines were measured in Phase 2 (see `docs/05_findings.md`). Targets are deliberately not invented: they
+are agreed with Finance and Growth, and any figure shown in the roadmap is labelled as an assumption.
 
 ## 7. Business requirements
 

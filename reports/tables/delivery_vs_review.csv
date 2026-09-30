@@ -1,0 +1,5 @@
+bucket_no,bucket,orders,avg_review,pct_1_2_star,pct_5_star
+1,On time,89001,4.291,9.24,62.29
+2,Late 1-3 days,1358,3.511,25.55,36.3
+3,Late 4-7 days,1772,2.317,61.29,18.06
+4,Late 8+ days,3246,1.726,78.47,7.46
